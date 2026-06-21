@@ -1,4 +1,4 @@
-﻿using ConsoleApp1.BussinessLayer;
+using ConsoleApp1.BussinessLayer;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -28,11 +28,13 @@ namespace ConsoleApp1.UI.ManageStudent
                 try
                 {
                     var student = studentController.GetStudentsById(input);
-                    if(student == null) 
+                    if (student == null)
                     {
                         Console.WriteLine("No Student found");
+                        break;
                     }
-                    else Console.WriteLine($"Student ID: {student.GetStudentID()}, Name: {student.GetStudentFullname()}, DOB: {student.GetStudentDOB()}");
+                    
+                    Console.WriteLine($"Student ID: {student.GetStudentID()}, Name: {student.GetStudentFullname()}, DOB: {student.GetStudentDOB()}");
                 }
                 catch (Exception ex) 
                 {

@@ -1,4 +1,4 @@
-﻿using ConsoleApp1.BussinessLayer;
+using ConsoleApp1.BussinessLayer;
 using ConsoleApp1.UI.CourseManagement;
 using ConsoleApp1.UI.ManageStudent;
 using ConsoleApp1.UI.RegistrationManagement;
@@ -30,6 +30,7 @@ namespace ConsoleApp1.UI
             pageList.Add(8, new CourseList(this, courseController));
             pageList.Add(9, new AddCourse(this, courseController));
             pageList.Add(10, new StudentRegister(this, registerController));
+            pageList.Add(11, new StudentInCourse(this, registerController, courseController, studentController));
 
         }
 

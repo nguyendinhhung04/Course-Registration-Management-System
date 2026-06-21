@@ -1,4 +1,4 @@
-﻿using ConsoleApp1.DataAccessLayer.Models;
+using ConsoleApp1.DataAccessLayer.Models;
 using ConsoleApp1.UI;
 using System;
 using System.Collections.Generic;
@@ -22,13 +22,16 @@ namespace ConsoleApp1.BussinessLayer
             {
                 throw new Exception("No Data");
             }
-            return data.studentList.Values.ToList();
+            return new List<Student>(data.studentList.Values);
         }
 
         public Student GetStudentsById(string id)
         {
-            if(data.studentList.ContainsKey(id)) { return data.studentList[id]; }
-            return null; 
+            if (id != null && data.studentList.TryGetValue(id, out var student))
+            {
+                return student;
+            }
+            return null;
         }
 
         public string ValidateNewStudent(string ID, string name, DateOnly dob)
@@ -40,16 +43,18 @@ namespace ConsoleApp1.BussinessLayer
                 {
                     return "Existed ID";
                 }
-                if (string.IsNullOrWhiteSpace(ID) ||
-                !Regex.IsMatch(ID, @"^S\d+$"))
-                {
-                    return "Invalid ID";
-                }
             }
-            
-            if (data.studentList.Values.FirstOrDefault(s => s.GetStudentFullname() == name && s.GetStudentDOB() == dob)!= null)
+            if (string.IsNullOrWhiteSpace(ID) ||
+                !Regex.IsMatch(ID, @"^S\d+$"))
             {
-                return "Student Existed";
+                return "Invalid ID";
+            }
+            foreach (var student in data.studentList.Values)
+            {
+                if (student.GetStudentFullname() == name && student.GetStudentDOB() == dob)
+                {
+                    return "Student Existed";
+                }
             }
 
             return "Success";
@@ -73,7 +78,7 @@ namespace ConsoleApp1.BussinessLayer
                 Student newStudent = new Student();
                 if (string.IsNullOrEmpty(ID))
                 {
-                    newStudent.SetStudentID("S" + (data.studentList.Count() + 1));
+                    newStudent.SetStudentID("S" + (data.studentList.Count + 1));
                 }
                 newStudent.SetStudentFullname(name);
                 newStudent.SetStudentDOB(dob);

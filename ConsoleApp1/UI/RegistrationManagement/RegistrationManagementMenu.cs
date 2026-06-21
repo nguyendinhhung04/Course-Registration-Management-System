@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -68,10 +68,13 @@ namespace ConsoleApp1.UI.RegistrationManagement
 
             switch (selected)
             {
-                case 0: // View all student
+                case 0: // Student register
                     uI_Controller.ChangeUiState(10);
                     break;
-                case 1: // Return to Main menu
+                case 1: // View Student in classes
+                    uI_Controller.ChangeUiState(11);
+                    break;
+                case 2: // Return to Main menu
                     uI_Controller.ChangeUiState(0);
                     break;
             }
