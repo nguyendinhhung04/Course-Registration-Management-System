@@ -1,0 +1,34 @@
+# Build outputs
+bin/
+obj/
+out/
+
+# Visual Studio / .NET user state
+.vs/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# VS Code
+.vscode/
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Local publish artifacts
+publish/
