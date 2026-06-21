@@ -24,18 +24,22 @@ namespace ConsoleApp1.UI.ManageStudent
                 string input = Console.ReadLine().Trim();
 
                 if (input == null) continue;
-                var studentList = studentController.GetStudentsById(input);
-                if (studentList.Count() == 0)
+
+                try
                 {
-                    Console.WriteLine("No Student found");
-                    break;
+                    var student = studentController.GetStudentsById(input);
+                    if(student == null) 
+                    {
+                        Console.WriteLine("No Student found");
+                    }
+                    else Console.WriteLine($"Student ID: {student.GetStudentID()}, Name: {student.GetStudentFullname()}, DOB: {student.GetStudentDOB()}");
                 }
-                
-                foreach( var i in studentList )
+                catch (Exception ex) 
                 {
-                    Console.WriteLine($"Student ID: {i.GetStudentID()}, Name: {i.GetStudentFullname()}, DOB: {i.GetStudentDOB()}");
-                    
+                    Console.WriteLine(ex.Message);
+
                 }
+
                 break;
             }
 

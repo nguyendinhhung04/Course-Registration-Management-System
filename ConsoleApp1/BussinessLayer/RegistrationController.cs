@@ -3,6 +3,7 @@ using ConsoleApp1.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ConsoleApp1.BussinessLayer
 {
@@ -18,9 +19,8 @@ namespace ConsoleApp1.BussinessLayer
 
         public string NewRegistration(string studentId, string courseCode)
         {
-            Student existedStudent = data.studentList.FirstOrDefault(s => s.GetStudentID() == studentId);
             Course existedCourse = data.courseList.FirstOrDefault(c => c.GetCourseCode() == courseCode);
-            if (existedStudent==null)
+            if (!data.studentList.ContainsKey(studentId))
             {
                 throw new ArgumentException("No student existed");
             }
@@ -29,7 +29,7 @@ namespace ConsoleApp1.BussinessLayer
                 throw new ArgumentException("No course existed");
             }
 
-            if(!data.registrationList.FindAll(r => r.GetStudentId() == studentId).Exists(r => r.GetCourseCode() == courseCode))
+            if(data.registrationList.FindAll(r => r.GetStudentId() == studentId).Exists(r => r.GetCourseCode() == courseCode))
             {
                 throw new Exception("Student has already registered course");
             }
@@ -43,6 +43,25 @@ namespace ConsoleApp1.BussinessLayer
             data.registrationList.Add(new Registration(studentId, courseCode, DateTime.Now));
 
             return "Success";
+        }
+
+        public Dictionary<Course, List<Student>> GetRegistration()
+        {
+            Dictionary<Course, List<Student>> dict = new Dictionary<Course, List<Student>>();
+            IEnumerable<IGrouping<string, Registration>> groupData = data.registrationList.GroupBy(r => r.GetCourseCode());
+
+            foreach (IGrouping<string, Registration> group in groupData)
+            {
+                Course course = data.courseList.FirstOrDefault(c => c.GetCourseCode() == group.Key);
+                List<Student> studentListInCourse = new List<Student>();
+                foreach (Registration s in group)
+                {
+                    studentListInCourse.Add(data.studentList[s.GetStudentId()]);
+                }
+                dict[course] = studentListInCourse;
+            }
+
+            return dict;
         }
     }
 }

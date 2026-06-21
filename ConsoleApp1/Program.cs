@@ -9,7 +9,8 @@ public class Program
         Data data = new Data();
         StudentController studentController = new StudentController(data);
         CourseController courseController = new CourseController(data);
-        UI_Controller ui_controller = new UI_Controller(studentController, courseController);
+        RegistrationController registrationController = new RegistrationController(data);
+        UI_Controller ui_controller = new UI_Controller(studentController, courseController, registrationController);
 
         while (ui_controller.GetUiState() > -1)
         {

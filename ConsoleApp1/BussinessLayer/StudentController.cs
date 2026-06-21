@@ -22,12 +22,13 @@ namespace ConsoleApp1.BussinessLayer
             {
                 throw new Exception("No Data");
             }
-            return data.studentList;
+            return data.studentList.Values.ToList();
         }
 
-        public List<Student> GetStudentsById(string id)
+        public Student GetStudentsById(string id)
         {
-            return data.studentList.FindAll(s => s.GetStudentID() == id); ;
+            if(data.studentList.ContainsKey(id)) { return data.studentList[id]; }
+            return null; 
         }
 
         public string ValidateNewStudent(string ID, string name, DateOnly dob)
@@ -35,17 +36,18 @@ namespace ConsoleApp1.BussinessLayer
             
             if (!String.IsNullOrEmpty(ID))
             {
-                if (data.studentList.Exists(s => s.GetStudentID() == ID))
+                if (data.studentList.ContainsKey(ID))
                 {
                     return "Existed ID";
                 }
-            }
-            if (string.IsNullOrWhiteSpace(ID) ||
+                if (string.IsNullOrWhiteSpace(ID) ||
                 !Regex.IsMatch(ID, @"^S\d+$"))
-            {
-                return "Invalid ID";
+                {
+                    return "Invalid ID";
+                }
             }
-            if (data.studentList.FindAll(s => s.GetStudentFullname() == name).Exists(s => s.GetStudentDOB() == dob))
+            
+            if (data.studentList.Values.FirstOrDefault(s => s.GetStudentFullname() == name && s.GetStudentDOB() == dob)!= null)
             {
                 return "Student Existed";
             }
@@ -75,7 +77,7 @@ namespace ConsoleApp1.BussinessLayer
                 }
                 newStudent.SetStudentFullname(name);
                 newStudent.SetStudentDOB(dob);
-                data.studentList.Add(newStudent);
+                data.studentList[newStudent.GetStudentID()] = newStudent;
             }
             catch(Exception e)
             {

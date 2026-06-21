@@ -1,4 +1,4 @@
-﻿using ConsoleApp1.BussinessLayer.Models;
+using ConsoleApp1.BussinessLayer.Models;
 using ConsoleApp1.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
@@ -8,13 +8,13 @@ namespace ConsoleApp1.BussinessLayer
 {
     internal class Data
     {
-        internal List<Student> studentList = new List<Student>
+        internal Dictionary<string, Student> studentList = new Dictionary<string, Student>
         {
-            new Student("S1", "Nguyen Van An", new DateOnly(2004, 01, 15)),
-            new Student("S2", "Tran Thi Binh", new DateOnly(2004, 03, 22)),
-            new Student("S3", "Le Quang Cuong",new DateOnly(2003, 11, 08)),
-            new Student("S4", "Pham Minh Duc", new DateOnly(2004, 07, 19)),
-            new Student("S5", "Hoang Thu Ha", new DateOnly(2005, 02, 28))
+            { "S1", new Student("S1", "Nguyen Van An", new DateOnly(2004, 01, 15)) },
+            { "S2", new Student("S2", "Tran Thi Binh", new DateOnly(2004, 03, 22)) },
+            { "S3", new Student("S3", "Le Quang Cuong", new DateOnly(2003, 11, 08)) },
+            { "S4", new Student("S4", "Pham Minh Duc", new DateOnly(2004, 07, 19)) },
+            { "S5", new Student("S5", "Hoang Thu Ha", new DateOnly(2005, 02, 28)) }
         };
 
         internal List<Course> courseList = new List<Course>()
