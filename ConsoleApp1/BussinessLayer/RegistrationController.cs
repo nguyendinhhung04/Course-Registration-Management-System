@@ -46,7 +46,7 @@ namespace ConsoleApp1.BussinessLayer
             return "Success";
         }
 
-        public Dictionary<Course, List<Student>> GetRegistration()
+        public Dictionary<Course, List<Student>> GetRegistrationInClass()
         {
             try
             {
@@ -64,7 +64,7 @@ namespace ConsoleApp1.BussinessLayer
                             studentListInCourse.Add(student);
                         }
                     }
-                    dict[course] = studentListInCourse;
+                    studentListInCourse.Sort((a,b) => a.GetStudentFullname().CompareTo(b.GetStudentFullname()));
                 }
 
                 return dict;

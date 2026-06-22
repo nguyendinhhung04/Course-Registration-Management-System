@@ -24,7 +24,7 @@ namespace ConsoleApp1.UI.RegistrationManagement
 
         public void RenderPage()
         {
-            var registrations = registerController.GetRegistration();
+            var registrations = registerController.GetRegistrationInClass();
             var allCourses = courseController.GetCourses();
 
             foreach (var course in allCourses)
